@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 
@@ -13,28 +13,39 @@
         <h1>Controle de Despesas</h1>
         <div>
             <h3>Saldo Atual</h3>
-            <span>0,00</span>
+            <span id="balance">0,00</span>
         </div>
         <div>
             <h3>Receitas</h3>
-            <span>0,00</span>
+            <span id="income">0,00</span>
         </div>
         <div>
             <h3>despesas</h3>
-            <span>0,00</span>
+            <span id="expense">0,00</span>
         </div>
         <div>
-            <ul><h3>Transações</h3></ul>
-            
+            <h3>Transações</h3>
+            <ul type="none" id="transactions">
+                
+            </ul>
+
         </div>
         <div>
-            <h3>Adicionar Transação</h3>
-            <input type="text" placeholder="Nome da transação">
-            <label for="">Valor (negativo despesas, positivo receitas)</label>
-            <input type="text" placeholder="Valor">
+            <form id="form">
+                <div>
+                    <h3>Adicionar Transação</h3>
+                    <input id="transaction-text" type="text" placeholder="Nome da transação">
+                </div>
+                <div>
+                    <p>Valor (negativo despesas, positivo receitas)</p>
+                    <input id="transaction-value" type="text" placeholder="Valor">
+                </div>
+                <button>Adicionar</button>
+            </form>
         </div>
 
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
