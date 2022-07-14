@@ -6,18 +6,20 @@ let form = document.getElementById("form")
 let transactionText = document.getElementById("transaction-text")
 let transactionValue = document.getElementById("transaction-value")
 
-let listTransations = []
+const localStorageTransaction = JSON.parse(localStorage.getItem('saveTransactions'))
+let saveTransactions = localStorage.getItem('sabeTransactions')!== null ? localStorageTransaction : []
 
 let delTransaction = id =>{
-    listTransations = listTransations.filter(transaction => transaction.id !== id)
-    showBalance()
+    saveTransactions = saveTransactions.filter(transaction => transaction.id !== id)
+    updateLocalStorage()
+    showTransactions()
 }
 
 let addTransaction = transaction =>{
     let op = transaction.val < 0 ? '-' : '+'
     let addClass = transaction.val < 0 ? 'minus' : 'plus'
-    let list = document.createElement('li')
     let onlyVal = Math.abs(transaction.val)
+    let list = document.createElement('li')
 
     list.classList.add(addClass)
     list.innerHTML = `
@@ -27,33 +29,35 @@ let addTransaction = transaction =>{
     transactions.append(list)
 }
 
-let localStorageTransaction = JSON.parse(localStorage.getItem('transactions'))
-
 let showBalance = () =>{
     //map: coleta somente o atributo do objeto
-    let sumBalance = listTransations.map(transaction => transaction.val)
+    let sumBalance = saveTransactions.map(transaction => transaction.val)
     //reduce: soma todos os valores
     let total = sumBalance.reduce((accumulator, transaction) => accumulator + transaction, 0).toFixed(2)
     //filter: apresenta os valores de acordo a condição
     let income = sumBalance.filter(value => value > 0).reduce((accumulator, value) => accumulator + value, 0).toFixed(2)
-    let expense = Math.abs(sumBalance.filter(value => value < 0).reduce((accumulator, value) => accumulator + value, 0).toFixed(2))
+    let expense = Math.abs(sumBalance.filter(value => value < 0).reduce((accumulator, value) => accumulator + value, 0)).toFixed(2)
 
     refBalance.textContent = `R$ ${total}`
     refExpense.textContent = `R$ ${expense}`
     refIncome.textContent = `R$ ${income}`
-
 }
 
 let showTransactions = () =>{
     //limpa a lista para não recarregar todas as transações a cada nova adição
     transactions.innerHTML = ''
-    listTransations.forEach(addTransaction)
+    saveTransactions.forEach(addTransaction)
     showBalance()
 }
 
 showTransactions()
 
-let createRandomId =()=> Math.round(Math.random()*1000)
+const updateLocalStorage = () =>{
+    localStorage.setItem('saveTransactions', JSON.stringify(saveTransactions))
+}
+
+const createRandomId =()=> Math.round(Math.random()*1000)
+
 
 form.addEventListener('submit', event=> {
     //Previne o envio do formulario
@@ -65,13 +69,14 @@ form.addEventListener('submit', event=> {
         return
     }
 
-    let transaction = {
+    const transaction = {
         id: createRandomId(),
         name: transactionText.value,
         val: Number(transactionValue.value)
     }
-    listTransations.push(transaction)
+    saveTransactions.push(transaction)
     showTransactions()
+    updateLocalStorage()
 
     transactionText.value = ''
     transactionValue.value = ''
