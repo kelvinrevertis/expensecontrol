@@ -6,11 +6,11 @@ let form = document.getElementById("form")
 let transactionText = document.getElementById("transaction-text")
 let transactionValue = document.getElementById("transaction-value")
 
-const localStorageTransaction = JSON.parse(localStorage.getItem('saveTransactions'))
-let saveTransactions = localStorage.getItem('sabeTransactions')!== null ? localStorageTransaction : []
+const localStorageTransactions = JSON.parse(localStorage.getItem('saveTransactions'))
+let saveTransactions = localStorage.getItem('saveTransactions')!== null ? localStorageTransactions : []
 
-let delTransaction = id =>{
-    saveTransactions = saveTransactions.filter(transaction => transaction.id !== id)
+let delTransaction = ID =>{
+    saveTransactions = saveTransactions.filter(transaction => transaction.id !== ID)
     updateLocalStorage()
     showTransactions()
 }
@@ -18,12 +18,12 @@ let delTransaction = id =>{
 let addTransaction = transaction =>{
     let op = transaction.val < 0 ? '-' : '+'
     let addClass = transaction.val < 0 ? 'minus' : 'plus'
-    let onlyVal = Math.abs(transaction.val)
+    let onlyVal = Math.abs(transaction.val).toFixed(2)
     let list = document.createElement('li')
 
     list.classList.add(addClass)
     list.innerHTML = `
-    ${transaction.name} <span>R$ ${op}${onlyVal}</span>
+    ${transaction.name} <span>R$${op}${onlyVal}</span>
     <button class="delete" onClick="delTransaction(${transaction.id})">x</button>
     `
     transactions.append(list)
@@ -62,6 +62,7 @@ const createRandomId =()=> Math.round(Math.random()*1000)
 form.addEventListener('submit', event=> {
     //Previne o envio do formulario
     event.preventDefault()
+    
 
     //trim: remove espaços em branco no inicio e fim de um texto
     if (transactionText.value.trim()=== '' || transactionValue.value.trim()===''){

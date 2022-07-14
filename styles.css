@@ -1,3 +1,70 @@
+body{
+    margin: 0;
+    color: white;
+    background-color: rgb(71, 75, 76);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
 #expense{
-    color: red;
+    color: rgb(242, 136, 136);
+}
+
+#income{
+    color: rgb(127, 241, 173);
+}
+
+#balance{
+    color: rgb(96, 96, 244);
+}
+
+.container-values{
+    align-items: center;
+    text-align: center;
+}
+
+.container{
+    margin: 0px auto;
+    width: 350px;
+    text-align: center;
+}
+
+h1{
+    margin: 0;
+}
+
+button{
+    cursor: pointer;
+    background-color: wheat;
+}
+
+.delete{
+    background-color: rgb(224, 101, 101);
+}
+
+#block{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+
+}
+
+input{
+    background-color: rgb(201, 201, 201);
+}
+
+.minus span{
+    background-color: rgb(93, 71, 71);
+    border-radius: 40px 40px;
+}
+
+.plus span{
+    width: 1500px;
+    height: 200px;
+    border-radius: 40px 40px;
+    background-color: rgb(71, 93, 81);
 }
